@@ -1,4 +1,4 @@
-# M.Sc. Project: Identifying Hadronically Decaying Tau Leptons Using Machine Learning
+# Identifying Hadronically Decaying Tau Leptons Using Machine Learning
 
 This repository presents the complete workflow for classifying hadronically decaying tau jets versus light quark jets in high-energy physics using **jet image-based representation** and **Convolutional Neural Networks (CNNs)**. The analysis leverages simulated $e^+e^-$ collision events and evaluates performance across multiple center-of-mass energies.
 
