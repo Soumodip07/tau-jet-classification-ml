@@ -1,0 +1,57 @@
+# ── Datasets ──────────────────────────────────────────────
+datasets/
+*.npz
+*.npy
+
+# ── ROOT / HEP files ──────────────────────────────────────
+*.root
+*.hepmc
+*.lhe
+generation/hepmc_files/
+generation/LHE_files/
+generation/root_files/
+
+# ── Model checkpoints ─────────────────────────────────────
+*.pt
+*.pth
+*.ckpt
+
+# ── Results / plots ───────────────────────────────────────
+results_analysis/
+*.png
+*.pdf
+*.eps
+
+# ── Python ────────────────────────────────────────────────
+__pycache__/
+*.py[cod]
+*.pyo
+.ipynb_checkpoints/
+*.egg-info/
+dist/
+build/
+.eggs/
+
+# ── Jupyter ───────────────────────────────────────────────
+.jupyter/
+*.ipynb_checkpoints
+
+# ── Virtual environments ──────────────────────────────────
+venv/
+env/
+.env
+*.env
+
+# ── OS / editor ───────────────────────────────────────────
+.DS_Store
+Thumbs.db
+desktop.ini
+.vscode/
+.idea/
+
+# ── Logs ──────────────────────────────────────────────────
+*.log
+*.txt.bak
+
+# ── CSV summaries (auto-generated, not source) ────────────
+results_analysis/**/*.csv
