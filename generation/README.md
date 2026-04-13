@@ -19,17 +19,26 @@ generate e+ e- > j j
 generate e+ e- > b b~
 ```
 
+Here `j` denotes light-flavour partons:
+j = u d s c u~ d~ s~ c~
+
+The bb̄ sample is generated explicitly using b-quark final states.
+
 Key run card settings used across all samples:
 
-| Parameter | Value | Notes |
-|---|---|---|
-| `ebeam1`, `ebeam2` | √s / 2 | half beam energy per side |
-| `maxjetflavor` | 4 | up to charm in j j sample |
-| `bwcutoff` | 15 | Breit-Wigner cutoff |
-| `use_syst` | False | no systematic variations |
-| Random seed | varied per energy and train/test | ensures no overlap between sets |
+| Parameter          | Value                            | Notes                               |
+| ------------------ | -------------------------------- | ----------------------------------- |
+| `ebeam1`, `ebeam2` | √s / 2                           | half beam energy per side           |
+| `maxjetflavor`     | 4 (ττ, jj), 5 (bb̄)               | include b quark only for bb̄ sample  |
+| `bwcutoff`         | 15                               | Breit-Wigner cutoff                 |
+| `use_syst`         | False                            | no systematic variations            |
+| Random seed        | varied per energy and train/test | ensures no overlap between sets     |
 
 Output: `.lhe` (Les Houches Event) files saved to `LHE_files/`.
+
+Note: For the 125 GeV and 250 GeV test sets, different random seeds were
+explicitly used relative to the corresponding training samples to avoid
+event overlap at the same centre-of-mass energy.
 
 ---
 
