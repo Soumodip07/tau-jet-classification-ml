@@ -42,12 +42,29 @@ The 3 image channels correspond to: **EFlowTrack**, **EFlowPhoton**,
 
 ## Jet counts (125 GeV training set)
 
-| Sample | Jets after selection | Label | sample_id |
-|---|---|---|---|
-| τ⁺τ⁻ | 178,451 | 1 | 0 |
-| jj | 147,961 | 0 | 1 |
-| bb̄ | 115,478 | 0 | 2 |
-| **Total** | **441,890** | | |
+| Sample    | Jets after selection | Label | sample_id |
+| --------- | -------------------- | ----- | --------- |
+| τ⁺τ⁻      | 178,451              | 1     | 0         |
+| jj        | 147,961              | 0     | 1         |
+| bb̄       | 115,478              | 0     | 2         |
+| **Total** | **441,890**          |       |           |
+
+Signal-to-background ratio ≈ 1 : 1.48
+pT window: 15–60 GeV
+Cone matching: ΔR < 0.4
+
+## Jet counts (250 GeV training set)
+
+| Sample    | Jets after selection | Label | sample_id |
+| --------- | -------------------- | ----- | --------- |
+| τ⁺τ⁻      | 212,613              | 1     | 0         |
+| jj        | 184,353              | 0     | 1         |
+| bb̄       | 138,496              | 0     | 2         |
+| **Total** | **535,462**          |       |           |
+
+Signal-to-background ratio ≈ 1 : 1.52
+pT window: 15–125 GeV
+Cone matching: ΔR < 0.4
 
 Signal-to-background ratio is approximately 1:1.5 for both the 125 GeV and 250 GeV training datasets.
 
@@ -59,6 +76,3 @@ Signal-to-background ratio is approximately 1:1.5 for both the 125 GeV and 250 G
 2. PCA rotation — principal axis aligned with η
 3. Energy flip — applied after PCA rotation
 4. L2 normalisation per image
-
-pT selection window: **15–60 GeV** (125 GeV training), **15–125 GeV** (250 GeV training).
-Cone matching: dR < 0.4 between Delphes jet and generator-level tau.
