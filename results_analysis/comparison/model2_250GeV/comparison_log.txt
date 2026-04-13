@@ -5,12 +5,12 @@ CNN params : 766,337  |  ViT params : 545,281
 ============================================================
 Running inference on all test datasets...
 ============================================================
-  100 GeV — 224164 jets — inference 457.5s
-  125 GeV — 239720 jets — inference 462.1s
-  150 GeV — 258279 jets — inference 630.2s
-  200 GeV — 277990 jets — inference 649.2s
-  250 GeV — 291519 jets — inference 314.1s
-  300 GeV — 302466 jets — inference 322.0s
+  100 GeV — 224164 jets — inference 146.3s
+  125 GeV — 239720 jets — inference 138.7s
+  150 GeV — 258279 jets — inference 149.0s
+  200 GeV — 277990 jets — inference 163.1s
+  250 GeV — 291519 jets — inference 169.7s
+  300 GeV — 302466 jets — inference 496.7s
 
 Available energies: [100, 125, 150, 200, 250, 300]
 ============================================================
@@ -29,6 +29,12 @@ SECTION 2 — Classification metrics
   Metrics at each energy:
       E   Acc_CNN  Acc_ViT   F1_CNN  F1_ViT   Rec_CNN  Rec_ViT
   ------------------------------------------------------------
+    100    0.9693   0.9693   0.9296  0.9260    0.9767   0.9258
+    125    0.9745   0.9774   0.9426  0.9472    0.9861   0.9537
+    150    0.9778   0.9820   0.9499  0.9579    0.9904   0.9660
+    200    0.9809   0.9872   0.9564  0.9701    0.9935   0.9815
+    250    0.9817   0.9891   0.9577  0.9742    0.9944   0.9868
+    300    0.9833   0.9906   0.9606  0.9774    0.9945   0.9908
     100    0.9696   0.9693   0.9273  0.9260    0.9354   0.9258
     125    0.9772   0.9774   0.9469  0.9472    0.9587   0.9537
     150    0.9820   0.9820   0.9580  0.9579    0.9699   0.9660
@@ -107,5 +113,5 @@ MODEL SUMMARY
 ============================================================
      Model      Params   Train AUC  Architecture
   -----------------------------------------------------------------
-    JetCNN     766,337      0.9988  Conv×4 + Flatten + FC(256)
-    JetViT     545,281      0.9988  ViT patch=4, depth=4, emb=128, heads=4
+  CNN_Model2     766,337      0.9988  Conv×4 + Flatten + FC(256)
+  ViT_Model2     545,281      0.9988  ViT patch=4, depth=4, emb=128, heads=4
