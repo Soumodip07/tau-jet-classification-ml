@@ -1,0 +1,153 @@
+============================================================
+KINEMATICS ANALYSIS REPORT — 125 GeV
+pT window : 15.0–60.0 GeV
+============================================================
+============================================================
+SECTION 1 — Basic file checks
+============================================================
+
+Event counts:
+   tau :  50,000 events
+    jj :  50,000 events
+    bb :  50,000 events
+
+Jets per event:
+   tau : mean=1.04  0-jet events=12,745  (25.5%)
+    jj : mean=1.91  0-jet events=2,846  (5.7%)
+    bb : mean=1.97  0-jet events=830  (1.7%)
+
+Jet pT overview (all jets, no cut):
+   tau : total jets= 51,819  mean pT=34.5 GeV
+    jj : total jets= 95,727  mean pT=39.2 GeV
+    bb : total jets= 98,505  mean pT=37.8 GeV
+
+TauTag and BTag rates (all jets):
+   tau : TauTag=39.9%  BTag=1.2%
+    jj : TauTag=0.2%  BTag=4.5%
+    bb : TauTag=1.6%  BTag=55.5%
+============================================================
+SECTION 2 — pT window study
+============================================================
+
+Jet counts at different pT cuts:
+
+  tau:
+    15–50 GeV :  44,656  (86.2%)
+    15–55 GeV :  48,361  (93.3%)
+    15–60 GeV :  50,874  (98.2%)
+    15–65 GeV :  51,719  (99.8%)
+    20–60 GeV :  43,739  (84.4%)
+    25–55 GeV :  34,007  (65.6%)
+
+  jj:
+    15–50 GeV :  70,249  (73.4%)
+    15–55 GeV :  82,116  (85.8%)
+    15–60 GeV :  92,467  (96.6%)
+    15–65 GeV :  95,481  (99.7%)
+    20–60 GeV :  82,999  (86.7%)
+    25–55 GeV :  63,561  (66.4%)
+
+  bb:
+    15–50 GeV :  77,848  (79.0%)
+    15–55 GeV :  88,476  (89.8%)
+    15–60 GeV :  96,379  (97.8%)
+    15–65 GeV :  98,366  (99.9%)
+    20–60 GeV :  86,814  (88.1%)
+    25–55 GeV :  68,768  (69.8%)
+============================================================
+SECTION 3 — Constituent check (pT 15.0–60.0 GeV)
+============================================================
+
+  ── tau ───────────────────────────────
+    Total jets            :  51,819
+    After pT window       :  50,874
+    Non-zero constituents :  50,874
+    Zero constituent jets :       0
+    Time: 164.7s
+
+  ── jj ───────────────────────────────
+    Total jets            :  95,727
+    After pT window       :  92,467
+    Non-zero constituents :  92,467
+    Zero constituent jets :       0
+    Time: 283.4s
+
+  ── bb ───────────────────────────────
+    Total jets            :  98,505
+    After pT window       :  96,379
+    Non-zero constituents :  96,379
+    Zero constituent jets :       0
+    Time: 335.2s
+============================================================
+SECTION 4 — Full kinematics (pT 15.0–60.0 GeV)
+============================================================
+
+Loading jets...
+  Loaded ee_tau_125GeV_50k_test.root — 50,874 jets  (35.4s)
+  Loaded ee_jj_125GeV_50k_test.root — 92,467 jets  (34.2s)
+  Loaded ee_bb_125GeV_50k_test.root — 96,379 jets  (35.8s)
+
+Substructure branch check:
+   tau : PTD nonzero=0  MSDR nonzero=0  Tau1 nonzero=44,627  Tau1 mean=0.0520
+    jj : PTD nonzero=0  MSDR nonzero=0  Tau1 nonzero=92,400  Tau1 mean=0.2321
+    bb : PTD nonzero=0  MSDR nonzero=0  Tau1 nonzero=96,362  Tau1 mean=0.2959
+
+Signal vs background comparison plots...
+
+Section 5 — N-subjettiness 2D scatter
+
+Section 6 — tau prong decomposition
+  tau 1-prong  (NCharged=1) : 36,489  (71.7%)
+  tau 3-prong  (NCharged=3) : 13,161  (25.9%)
+  other                     : 1,224  (2.4%)
+
+Section 7 — Separation power (Wasserstein distance)
+
+         Variable    Wasserstein dist
+  ------------------------------------
+               τ₁              0.2294
+            τ₂/τ₁              0.3739
+            τ₃/τ₂              0.5093
+         NCharged              0.1997
+             mass              0.2545
+              CHF              0.1070
+              NEF              0.1070
+      EhadOverEem              0.2491
+               pT              0.0843
+
+Section 8 — Tagger efficiency (with pT cut)
+
+  Sample    TauTag %      BTag %      N jets
+  ------------------------------------------
+     tau       39.9%        1.2%      50,874
+      jj        0.2%        4.5%      92,467
+      bb        1.6%       55.2%      96,379
+
+Section 9 — Correlation matrices
+============================================================
+SECTION 10 — Summary statistics
+============================================================
+
+        Variable    tau mean    tau std    jj mean    jj std    bb mean    bb std
+  --------------------------------------------------------------------------------
+        pT (GeV)     34.0025    11.9243    38.3646   12.8477    37.2482   12.2907
+      Mass (GeV)      1.0350     0.6508     5.0322    1.9862     5.6755    1.8325
+        NCharged      1.5329     0.9058     5.1534    2.2437     6.2770    2.4834
+              τ₁      0.0520     0.0416     0.2321    0.1154     0.2959    0.1079
+           τ₂/τ₁      0.2537     0.1923     0.5922    0.1288     0.5912    0.1289
+           τ₃/τ₂      0.1598     0.2163     0.6231    0.1460     0.6505    0.1260
+             CHF      0.6364     0.3186     0.6109    0.2310     0.6356    0.1985
+             NEF      0.3636     0.3186     0.3891    0.2310     0.3644    0.1985
+     EhadOverEem    314.7235   464.2699    89.9853  283.9467    42.6245  199.2967
+============================================================
+FINAL JET COUNTS (after pT window)
+============================================================
+  tau :  50,874  (signal,  label=1)
+  jj  :  92,467  (background, sample_id=1)
+  bb  :  96,379  (background, sample_id=2)
+  total : 239,720
+  sig:bkg ratio = 1 : 3.71
+
+pT window used : 15.0–60.0 GeV
+Cone size      : dR < 0.4
+Energy         : 125 GeV

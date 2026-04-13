@@ -1,0 +1,171 @@
+Device : cpu
+Loaded  : ViT_model2_250GeV.pt
+Epoch   : 44  |  Val AUC (train) : 0.9988
+============================================================
+  Evaluating 100 GeV
+============================================================
+  Jets loaded  : 224164
+  Signal (tau) : 46519
+  Bkg (jj)     : 86667
+  Bkg (bb)     : 90978
+  Inference : 360.4s
+
+  ── Metrics (threshold=0.5) ──
+  Accuracy  : 0.9693
+  Precision : 0.9262
+  Recall    : 0.9258
+  F1        : 0.9260
+  AUC       : 0.9937
+  AUC τ vs jj : 0.9896
+  AUC τ vs bb : 0.9977
+
+  Event-tagging efficiency : 0.9444  (32367/34274 events)
+
+  ── Jet-level tagging completeness ──
+  Mean completeness          : 0.9230
+  Fraction fully tagged      : 0.9016  (30901/34274 events)
+  Fraction not tagged at all : 0.0556  (1907/34274 events)
+
+  Plots saved to: E:\Python\MSc_Project_Upgrade\results_analysis\vit\test_results_model2_250GeV\100GeV
+============================================================
+  Evaluating 125 GeV
+============================================================
+  Jets loaded  : 239720
+  Signal (tau) : 50874
+  Bkg (jj)     : 92467
+  Bkg (bb)     : 96379
+  Inference : 360.4s
+
+  ── Metrics (threshold=0.5) ──
+  Accuracy  : 0.9774
+  Precision : 0.9407
+  Recall    : 0.9537
+  F1        : 0.9472
+  AUC       : 0.9963
+  AUC τ vs jj : 0.9939
+  AUC τ vs bb : 0.9986
+
+  Event-tagging efficiency : 0.9665  (35640/36874 events)
+
+  ── Jet-level tagging completeness ──
+  Mean completeness          : 0.9520
+  Fraction fully tagged      : 0.9373  (34563/36874 events)
+  Fraction not tagged at all : 0.0335  (1234/36874 events)
+
+  Plots saved to: E:\Python\MSc_Project_Upgrade\results_analysis\vit\test_results_model2_250GeV\125GeV
+============================================================
+  Evaluating 150 GeV
+============================================================
+  Jets loaded  : 258279
+  Signal (tau) : 54839
+  Bkg (jj)     : 100831
+  Bkg (bb)     : 102609
+  Inference : 445.4s
+
+  ── Metrics (threshold=0.5) ──
+  Accuracy  : 0.9820
+  Precision : 0.9499
+  Recall    : 0.9660
+  F1        : 0.9579
+  AUC       : 0.9976
+  AUC τ vs jj : 0.9959
+  AUC τ vs bb : 0.9992
+
+  Event-tagging efficiency : 0.9762  (37962/38889 events)
+
+  ── Jet-level tagging completeness ──
+  Mean completeness          : 0.9644
+  Fraction fully tagged      : 0.9527  (37049/38889 events)
+  Fraction not tagged at all : 0.0238  (927/38889 events)
+
+  Plots saved to: E:\Python\MSc_Project_Upgrade\results_analysis\vit\test_results_model2_250GeV\150GeV
+============================================================
+  Evaluating 200 GeV
+============================================================
+  Jets loaded  : 277990
+  Signal (tau) : 58709
+  Bkg (jj)     : 109259
+  Bkg (bb)     : 110022
+  Inference : 699.7s
+
+  ── Metrics (threshold=0.5) ──
+  Accuracy  : 0.9872
+  Precision : 0.9589
+  Recall    : 0.9815
+  F1        : 0.9701
+  AUC       : 0.9986
+  AUC τ vs jj : 0.9976
+  AUC τ vs bb : 0.9995
+
+  Event-tagging efficiency : 0.9873  (40341/40859 events)
+
+  ── Jet-level tagging completeness ──
+  Mean completeness          : 0.9806
+  Fraction fully tagged      : 0.9739  (39792/40859 events)
+  Fraction not tagged at all : 0.0127  (518/40859 events)
+
+  Plots saved to: E:\Python\MSc_Project_Upgrade\results_analysis\vit\test_results_model2_250GeV\200GeV
+============================================================
+  Evaluating 250 GeV
+============================================================
+  Jets loaded  : 291519
+  Signal (tau) : 60697
+  Bkg (jj)     : 115093
+  Bkg (bb)     : 115729
+  Inference : 687.1s
+
+  ── Metrics (threshold=0.5) ──
+  Accuracy  : 0.9891
+  Precision : 0.9620
+  Recall    : 0.9868
+  F1        : 0.9742
+  AUC       : 0.9989
+  AUC τ vs jj : 0.9983
+  AUC τ vs bb : 0.9996
+
+  Event-tagging efficiency : 0.9916  (41544/41898 events)
+
+  ── Jet-level tagging completeness ──
+  Mean completeness          : 0.9864
+  Fraction fully tagged      : 0.9812  (41109/41898 events)
+  Fraction not tagged at all : 0.0084  (354/41898 events)
+
+  Plots saved to: E:\Python\MSc_Project_Upgrade\results_analysis\vit\test_results_model2_250GeV\250GeV
+============================================================
+  Evaluating 300 GeV
+============================================================
+  Jets loaded  : 302466
+  Signal (tau) : 61871
+  Bkg (jj)     : 120093
+  Bkg (bb)     : 120502
+  Inference : 422.4s
+
+  ── Metrics (threshold=0.5) ──
+  Accuracy  : 0.9906
+  Precision : 0.9644
+  Recall    : 0.9908
+  F1        : 0.9774
+  AUC       : 0.9991
+  AUC τ vs jj : 0.9986
+  AUC τ vs bb : 0.9996
+
+  Event-tagging efficiency : 0.9942  (42147/42394 events)
+
+  ── Jet-level tagging completeness ──
+  Mean completeness          : 0.9905
+  Fraction fully tagged      : 0.9867  (41830/42394 events)
+  Fraction not tagged at all : 0.0058  (247/42394 events)
+
+  Plots saved to: E:\Python\MSc_Project_Upgrade\results_analysis\vit\test_results_model2_250GeV\300GeV
+============================================================
+  SUMMARY — ViT_Model2 across all energies
+============================================================
+ energy_GeV  n_jets  accuracy  precision  recall     f1  auc_overall  auc_tau_jj  auc_tau_bb  ev_tag_eff  mean_completeness  frac_fully_tagged
+        100  224164    0.9693     0.9262  0.9258 0.9260       0.9937      0.9896      0.9977      0.9444             0.9230             0.9016
+        125  239720    0.9774     0.9407  0.9537 0.9472       0.9963      0.9939      0.9986      0.9665             0.9520             0.9373
+        150  258279    0.9820     0.9499  0.9660 0.9579       0.9976      0.9959      0.9992      0.9762             0.9644             0.9527
+        200  277990    0.9872     0.9589  0.9815 0.9701       0.9986      0.9976      0.9995      0.9873             0.9806             0.9739
+        250  291519    0.9891     0.9620  0.9868 0.9742       0.9989      0.9983      0.9996      0.9916             0.9864             0.9812
+        300  302466    0.9906     0.9644  0.9908 0.9774       0.9991      0.9986      0.9996      0.9942             0.9905             0.9867
+
+  CSV saved to: E:\Python\MSc_Project_Upgrade\results_analysis\vit\test_results_model2_250GeV\summary_vit.csv
