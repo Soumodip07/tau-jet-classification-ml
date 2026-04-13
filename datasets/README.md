@@ -49,7 +49,7 @@ The 3 image channels correspond to: **EFlowTrack**, **EFlowPhoton**,
 | bb̄ | 115,478 | 0 | 2 |
 | **Total** | **441,890** | | |
 
-Signal : background ratio ≈ 1 : 1.48
+Signal-to-background ratio is approximately 1:1.5 for both the 125 GeV and 250 GeV training datasets.
 
 ---
 
