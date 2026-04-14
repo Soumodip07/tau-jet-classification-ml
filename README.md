@@ -132,46 +132,74 @@ Full architecture details are in [`utils/README.md`](utils/README.md).
 | 250 GeV | 0.9986 | 0.9989 | 0.9986 | 0.9989 |
 | 300 GeV | 0.9988 | 0.9992 | 0.9987 | 0.9991 |
 
+---
+
 ### CNN vs ViT — model1 (trained at 125 GeV)
 
-![Classification metrics, model1](results_analysis/comparison/model1_125GeV/2a_metrics_vs_energy.png)
+![ROC curves across all test energies, model1](results_analysis/comparison/model1_125GeV/3a_roc_all_energies.png)
 
-The model1 comparison reveals a clear **precision–recall trade-off** between architectures.
-At 100 GeV (hardest out-of-distribution test):
+![Background rejection at fixed signal efficiency, model1](results_analysis/comparison/model1_125GeV/3c_bkg_rejection_fixed_sig_eff.png)
+
+Model1 reveals a clear **precision–recall trade-off** between the two architectures,
+most visible at 100 GeV (the hardest out-of-distribution test):
 
 - **CNN@125**: recall = 0.883, precision = 0.950 — conservative, high-purity tagger
 - **ViT@125**: recall = 0.967, precision = 0.913 — aggressive, high-completeness tagger
 
-The AUC values are nearly identical (max Δ = 0.0005), meaning both models have the same
-underlying discriminating power — the difference is purely a threshold=0.5 effect. The ViT's
-attention mechanism assigns higher scores to tau jets, shifting the operating point toward
-higher recall. The F1 crossover occurs around 175–200 GeV.
+Despite this, the AUC values are nearly identical across all energies (max Δ = 0.0005),
+meaning both models have the same underlying discriminating power — the difference is
+purely a threshold=0.5 operating point effect. The ViT's attention mechanism assigns
+higher scores to tau jets, shifting its operating point toward higher recall at the cost
+of more background. At 90% signal efficiency the ViT maintains higher background
+rejection at all energies below 200 GeV, confirming it is the better choice for
+high-efficiency tau selection at lower energies. The F1 crossover between CNN and ViT
+occurs around 175–200 GeV, above which CNN's higher precision begins to dominate.
 
-![Background rejection at fixed signal efficiency, model1](results_analysis/comparison/model1_125GeV/3c_bkg_rejection_fixed_sig_eff.png)
-
-At 90% signal efficiency, the ViT achieves higher background rejection at all energies
-below 200 GeV — confirming it is the better model for high-efficiency tau selection.
+---
 
 ### CNN vs ViT — model2 (trained at 250 GeV)
 
-![Classification metrics, model2](results_analysis/comparison/model2_250GeV/2a_metrics_vs_energy.png)
+![ROC curves across all test energies, model2](results_analysis/comparison/model2_250GeV/3a_roc_all_energies.png)
 
-Training on the wider 15–125 GeV pT window causes the precision–recall split to almost
-completely disappear. CNN and ViT curves overlap across all 6 test energies for every metric.
+![Background rejection at fixed signal efficiency, model2](results_analysis/comparison/model2_250GeV/3c_bkg_rejection_fixed_sig_eff.png)
+
+Training on the wider 15–125 GeV pT window produces a strikingly different picture.
+The precision–recall split seen in model1 almost completely disappears — CNN and ViT
+curves overlap across all 6 test energies for every metric. At 100 GeV:
+
+- **CNN@250**: recall = 0.935, precision = 0.919
+- **ViT@250**: recall = 0.926, precision = 0.926
+
+The gap has collapsed from ~8.5 percentage points (model1) to under 1 point.
+Both architectures now sit at essentially the same operating point, with AUC differences
+of at most 0.0001. The background rejection curves are also nearly indistinguishable
+across all three signal efficiency working points (50%, 70%, 90%).
+
+One notable detail: at 300 GeV the ViT@250 marginally edges ahead on event-tagging
+efficiency (0.9942 vs 0.9937) — the only energy where ViT leads CNN in model2. This
+suggests that at very high energies, the ViT's global attention may capture long-range
+substructure slightly better, but the difference is too small to be conclusive.
+
 This shows the model1 split was not a fundamental architectural difference — it was a
-consequence of the narrower training distribution. Given sufficient training diversity,
-both architectures converge to equivalent performance.
+consequence of the narrower 15–60 GeV training distribution. Given sufficient pT
+diversity in training, both architectures converge to equivalent performance.
+
+---
 
 ### Key observations
 
 - All four models achieve AUC > 0.993 across the full 100–300 GeV range despite being
   trained at a single energy, demonstrating strong cross-energy generalisation
-- Performance improves monotonically with test energy — higher √s produces more collimated,
-  energetically distinct tau jets, making image-based classification intrinsically easier
-- CNN@125 is the highest-precision classifier; ViT@125 achieves the highest recall and
-  event-tagging efficiency at lower energies out-of-distribution
-- The precision–recall trade-off vanishes for model2: a wider training pT window removes
-  the architectural distinction entirely
+- Performance improves monotonically with test energy — higher √s produces more
+  collimated, energetically distinct tau jets, making image-based classification
+  intrinsically easier
+- Model1 (125 GeV training): CNN is a precision classifier, ViT is a recall classifier —
+  the choice depends on the physics use case (pure sample vs complete sample)
+- Model2 (250 GeV training): both architectures are essentially equivalent, with the
+  wider training pT window removing the architectural distinction entirely
+- CNN@125 is the highest-precision classifier overall; ViT@125 achieves the highest
+  recall and event-tagging efficiency at lower energies; CNN@250 leads on AUC at high
+  energies; ViT@250 very marginally leads on event efficiency at 300 GeV
 
 ---
 
