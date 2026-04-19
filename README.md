@@ -1,10 +1,10 @@
 # Hadronic Tau Jet Tagging at an e⁺e⁻ Collider using Deep Learning
 
 A deep learning study for hadronic tau jet identification in e⁺e⁻ collisions using the ILD
-detector simulation. Models are trained on jet images and evaluated across a range of
-centre-of-mass energies to probe cross-energy generalisation. This project is part of an
-MSc upgrade and is **actively being developed — results and documentation will be updated
-regularly**.
+detector simulation. Models are trained on jet images and tabular jet features and evaluated
+across a range of centre-of-mass energies to probe cross-energy generalisation. This project
+is part of an MSc upgrade and is **actively being developed — results and documentation will
+be updated regularly**.
 
 ---
 
@@ -106,6 +106,8 @@ PCA rotation, energy flip, L2 normalisation.
 
 ## Models
 
+### Image-based models (CNN / ViT)
+
 | Model | Architecture | Params | Train √s | Val AUC |
 |---|---|---|---|---|
 | JetCNN (model1) | 4-layer CNN + FC head | 766k | 125 GeV | 0.9961 |
@@ -117,11 +119,45 @@ Both models use BCEWithLogitsLoss with class weighting, AUC-based early stopping
 and ReduceLROnPlateau scheduling. CNN uses Adam; ViT uses AdamW with weight decay.
 Full architecture details are in [`utils/README.md`](utils/README.md).
 
+### BDT baseline models (tabular features)
+
+Three gradient-boosted tree classifiers trained on **10 jet-level features** extracted
+directly from the Delphes ROOT files. Each algorithm is trained at both energies,
+giving 6 BDT models total.
+
+**Features used:**
+
+| Feature | Description |
+|---|---|
+| `pt` | Jet transverse momentum [GeV] |
+| `mass` | Jet invariant mass [GeV] |
+| `ncharged` | Number of charged constituents |
+| `nneutrals` | Number of neutral constituents |
+| `ehad` | EhadOverEem — hadronic energy fraction |
+| `chf` | Charged energy fraction |
+| `nef` | Neutral energy fraction |
+| `tau1` | N-subjettiness τ₁ |
+| `tau21` | N-subjettiness ratio τ₂/τ₁ |
+| `tau32` | N-subjettiness ratio τ₃/τ₂ |
+
+`btag` and `tautag` flags were intentionally excluded — `TauTag` is the Delphes
+built-in tau ID which would make the classifier partially circular, and `BTag` is
+not a physics-motivated discriminant for this signal topology.
+
+| Model | Algorithm | Train √s | Val AUC | Train time |
+|---|---|---|---|---|
+| RF model1 | Random Forest (600 trees) | 125 GeV | 0.99846 | 168s |
+| RF model2 | Random Forest (600 trees) | 250 GeV | 0.99953 | 219s |
+| XGB model1 | XGBoost (lr=0.02, best iter=1721) | 125 GeV | 0.99854 | 55s |
+| XGB model2 | XGBoost (lr=0.02, best iter=1838) | 250 GeV | 0.99962 | 69s |
+| LGBM model1 | LightGBM (lr=0.02, best iter=934) | 125 GeV | 0.99858 | **12s** |
+| LGBM model2 | LightGBM (lr=0.02, best iter=1246) | 250 GeV | **0.99963** | **18s** |
+
 ---
 
 ## Results
 
-### Cross-energy AUC
+### CNN / ViT — Cross-energy AUC
 
 | Test √s | CNN@125 | CNN@250 | ViT@125 | ViT@250 |
 |---|---|---|---|---|
@@ -172,34 +208,63 @@ curves overlap across all 6 test energies for every metric. At 100 GeV:
 
 The gap has collapsed from ~8.5 percentage points (model1) to under 1 point.
 Both architectures now sit at essentially the same operating point, with AUC differences
-of at most 0.0001. The background rejection curves are also nearly indistinguishable
-across all three signal efficiency working points (50%, 70%, 90%).
-
-One notable detail: at 300 GeV the ViT@250 marginally edges ahead on event-tagging
-efficiency (0.9942 vs 0.9937) — the only energy where ViT leads CNN in model2. This
-suggests that at very high energies, the ViT's global attention may capture long-range
-substructure slightly better, but the difference is too small to be conclusive.
-
-This shows the model1 split was not a fundamental architectural difference — it was a
-consequence of the narrower 15–60 GeV training distribution. Given sufficient pT
-diversity in training, both architectures converge to equivalent performance.
+of at most 0.0001. This shows the model1 split was not a fundamental architectural
+difference — it was a consequence of the narrower 15–60 GeV training distribution.
 
 ---
 
-### Key observations
+### BDT baseline — Cross-energy AUC
 
-- All four models achieve AUC > 0.993 across the full 100–300 GeV range despite being
-  trained at a single energy, demonstrating strong cross-energy generalisation
-- Performance improves monotonically with test energy — higher √s produces more
-  collimated, energetically distinct tau jets, making image-based classification
-  intrinsically easier
-- Model1 (125 GeV training): CNN is a precision classifier, ViT is a recall classifier —
-  the choice depends on the physics use case (pure sample vs complete sample)
-- Model2 (250 GeV training): both architectures are essentially equivalent, with the
-  wider training pT window removing the architectural distinction entirely
-- CNN@125 is the highest-precision classifier overall; ViT@125 achieves the highest
-  recall and event-tagging efficiency at lower energies; CNN@250 leads on AUC at high
-  energies; ViT@250 very marginally leads on event efficiency at 300 GeV
+| Test √s | RF@125 | XGB@125 | LGBM@125 | RF@250 | XGB@250 | LGBM@250 |
+|---|---|---|---|---|---|---|
+| 100 GeV | 0.9979 | 0.9935 | 0.9981 | 0.9968 | 0.9974 | 0.9974 |
+| 125 GeV | 0.9986 | 0.9957 | 0.9987 | 0.9982 | 0.9984 | 0.9984 |
+| 150 GeV | 0.9989 | 0.9967 | 0.9991 | 0.9988 | 0.9989 | 0.9989 |
+| 200 GeV | 0.9992 | 0.9974 | 0.9993 | 0.9994 | 0.9994 | 0.9994 |
+| 250 GeV | 0.9992 | 0.9976 | 0.9993 | 0.9995 | 0.9996 | 0.9996 |
+| 300 GeV | 0.9993 | 0.9978 | 0.9994 | 0.9996 | 0.9997 | 0.9997 |
+
+![BDT model comparison — 125 GeV training group](results_analysis/bdt/comparison/compare_125GeV_brej_curves.png)
+
+![BDT model comparison — 250 GeV training group](results_analysis/bdt/comparison/compare_250GeV_brej_curves.png)
+
+**Key findings from the BDT study:**
+
+- All 6 BDT models achieve AUC > 0.993 across 100–300 GeV, confirming strong
+  cross-energy generalisation from tabular features alone
+- **LGBM ≥ RF > XGB** in both AUC and background rejection at all working points.
+  XGB shows anomalous behaviour: highest rejection at 30% signal efficiency but
+  collapse to very low rejection at 70–90% efficiency — its score distribution
+  is sharply peaked near the boundary, performing well only on easy jets
+- **Background rejection at 50% signal efficiency** (in-distribution test):
+  LGBM@125 = 2861, RF@125 = 2361, XGB@125 = 1834;
+  LGBM@250 = 17755, RF@250 = 8878, XGB@250 = 15388
+- **Dominant feature**: jet invariant mass (importance ≥ 0.56 in all three
+  algorithms), followed by τ₁ and NCharged — reflecting the physical picture
+  that tau jets are narrow, low-mass, and have few charged tracks compared
+  to QCD jets
+- **N-subjettiness ratios** (τ₂/τ₁, τ₃/τ₂) rank low despite having the highest
+  Wasserstein separation power in the kinematics study — the BDT already captures
+  the same information through mass + τ₁ + NCharged jointly, making the ratios
+  redundant in a multivariate setting
+- **LGBM is 10–15× faster** than RF with equal or better performance, making it
+  the recommended BDT for this task
+
+---
+
+### Key observations (all models)
+
+- All models (CNN, ViT, RF, XGB, LGBM) achieve AUC > 0.993 across 100–300 GeV,
+  demonstrating that both image-based and tabular approaches generalise strongly
+  across centre-of-mass energies
+- Performance improves monotonically with test energy for all architectures —
+  higher √s produces more collimated, energetically distinct tau jets
+- The 250 GeV training group consistently outperforms the 125 GeV group at all
+  test energies, driven by the wider pT training window
+- BDT baseline (LGBM) achieves AUC within 0.001–0.003 of the CNN/ViT models
+  while using only 10 hand-crafted features vs full jet images —
+  confirming that the dominant discriminating information is captured by
+  a small set of high-level physics observables
 
 ---
 
@@ -214,7 +279,8 @@ tau-jet-classification-ml/
 │   ├── root_files/           ← (not stored, see README)
 │   └── README.md
 ├── datasets/
-│   ├── cnn_vit/              ← training .npz files (not stored)
+│   ├── cnn_vit/              ← jet image .npz files (not stored)
+│   ├── bdt/                  ← tabular feature .npz files (not stored)
 │   └── README.md
 ├── notebooks/
 │   ├── 01_kinematics_analysis.ipynb
@@ -226,11 +292,19 @@ tau-jet-classification-ml/
 │   ├── ViT/
 │   │   ├── ViT.ipynb
 │   │   └── ViT_models_training.ipynb
+│   ├── BDT/
+│   │   ├── 01_BDT_dataset_creation.py
+│   │   ├── 02_BDT_train_RF.py
+│   │   ├── 03_BDT_train_XGB.py
+│   │   ├── 04_BDT_train_LGBM.py
+│   │   ├── 05_BDT_evaluation.ipynb
+│   │   └── 06_BDT_results_compare.ipynb
 │   └── README.md
 ├── results_analysis/
 │   ├── cnn/
 │   ├── vit/
 │   ├── comparison/
+│   ├── bdt/
 │   ├── jet_images/
 │   ├── kinematics/
 │   └── README.md
@@ -243,8 +317,8 @@ tau-jet-classification-ml/
 └── README.md
 ```
 
-> Datasets (`.npz`), ROOT files, and model checkpoints (`.pt`) are excluded via
-> `.gitignore`. Model weights are available on request.
+> Datasets (`.npz`), ROOT files, and model checkpoints (`.pt`, `.pkl`, `.json`, `.txt`)
+> are excluded via `.gitignore`. Model weights are available on request.
 
 ---
 
@@ -256,10 +330,10 @@ tau-jet-classification-ml/
 - [x] JetViT — trained at 125 GeV and 250 GeV
 - [x] Cross-energy evaluation (100–300 GeV) for CNN and ViT
 - [x] CNN vs ViT comparison analysis
-- [ ] BDT baseline using tabular jet features
+- [x] BDT baseline (RF / XGBoost / LightGBM) using 10 tabular jet features
+- [ ] Late-fusion ensemble (CNN + BDT)
 - [ ] Graph Neural Network (GNN) using particle-level inputs
-- [ ] Late-fusion ensemble (CNN + ViT + BDT + GNN)
-- [ ] Full results writeup and comparison
+- [ ] Full cross-architecture comparison and results writeup
 
 ---
 
@@ -272,6 +346,9 @@ numpy
 uproot
 awkward
 scikit-learn
+xgboost
+lightgbm
+joblib
 matplotlib
 scipy
 ```
