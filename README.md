@@ -224,9 +224,9 @@ difference — it was a consequence of the narrower 15–60 GeV training distrib
 | 250 GeV | 0.9992 | 0.9976 | 0.9993 | 0.9995 | 0.9996 | 0.9996 |
 | 300 GeV | 0.9993 | 0.9978 | 0.9994 | 0.9996 | 0.9997 | 0.9997 |
 
-![BDT model comparison — 125 GeV training group](results_analysis/bdt/comparison/compare_125GeV_brej_curves.png)
+![BDT model comparison — 125 GeV training group](results_analysis/bdt/comparison/compare_125GeV_brej_grid.png)
 
-![BDT model comparison — 250 GeV training group](results_analysis/bdt/comparison/compare_250GeV_brej_curves.png)
+![BDT model comparison — 250 GeV training group](results_analysis/bdt/comparison/compare_250GeV_brej_grid.png)
 
 **Key findings from the BDT study:**
 
