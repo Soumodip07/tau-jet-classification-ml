@@ -137,5 +137,5 @@ Outputs saved to `results_analysis/bdt/comparison/`.
 
 | Folder | Contents |
 |---|---|
-| `fusion/` | Late-fusion ensemble combining all models |
 | `GNN/` | Graph Neural Network using particle-level inputs |
+| `fusion/` | Late-fusion ensemble combining all models |
